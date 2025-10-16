@@ -111,9 +111,7 @@ ADD CONSTRAINT CiudadDestino
   id_avion int NOT NULL,
   fecha_hora_salida timestamp NOT NULL,
   fecha_hora_llegada timestamp NOT NULL,
-  PRIMARY KEY (ID_vuelo),
-  FOREIGN KEY (id_avion) REFERENCES Aviones(ID_avion)
-);
+  PRIMARY KEY (ID_vuelo));
 
 ALTER TABLE  vuelos
 ADD CONSTRAINT RutaVuelo
@@ -125,7 +123,7 @@ ADD CONSTRAINT EstadoVuelo
   FOREIGN KEY (id_estado_vuelo)
   REFERENCES  states (id_state);
   
-ALTER TABLE  Aviones
+ALTER TABLE  vuelos
 ADD CONSTRAINT Avion
   FOREIGN KEY (id_avion)
   REFERENCES  Aviones(ID_avion);
