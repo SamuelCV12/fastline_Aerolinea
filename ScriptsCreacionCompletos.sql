@@ -66,6 +66,11 @@ ADD CONSTRAINT `FKCategory`
   FOREIGN KEY (`Category`)
   REFERENCES  `Categories` (`Id_Category`);
   
+CREATE TABLE Ciudades(
+ID_ciudad int NOT NULL auto_increment,
+nombre varchar(150) NOT NULL,
+PRIMARY KEY(ID_ciudad));
+
   CREATE TABLE Aviones (
   ID_avion INT NOT NULL AUTO_INCREMENT,
   Referencia VARCHAR(100),
@@ -80,9 +85,51 @@ ALTER TABLE  Aviones
 ADD CONSTRAINT EstadoAviones
   FOREIGN KEY (Estado_avion)
   REFERENCES  states (id_state);
-
-
   
+CREATE TABLE Rutas(
+ID_ruta int NOT NULL auto_increment,
+id_ciudad_origen int NOT NULL,
+id_ciudad_destino int NOT NULL,
+estado_ruta int NOT NULL,
+precio_base numeric(10,2),
+PRIMARY KEY(ID_ruta));
+
+ ALTER TABLE  Rutas
+ADD CONSTRAINT CiudadOrigen
+  FOREIGN KEY (id_ciudad_origen)
+  REFERENCES  Ciudades (ID_ciudad);
+
+  ALTER TABLE  Rutas
+ADD CONSTRAINT CiudadDestino
+  FOREIGN KEY (id_ciudad_destino)
+  REFERENCES  Ciudades (ID_ciudad);
+  
+  CREATE TABLE vuelos(
+  ID_vuelo int NOT NULL auto_increment,
+  id_ruta int NOT NULL,
+  id_estado_vuelo int NOT NULL,
+  id_avion int NOT NULL,
+  fecha_hora_salida timestamp NOT NULL,
+  fecha_hora_llegada timestamp NOT NULL,
+  PRIMARY KEY (ID_vuelo),
+  FOREIGN KEY (id_avion) REFERENCES Aviones(ID_avion)
+);
+
+ALTER TABLE  vuelos
+ADD CONSTRAINT RutaVuelo
+  FOREIGN KEY (id_ruta)
+  REFERENCES  Rutas(ID_ruta);
+  
+ALTER TABLE  vuelos
+ADD CONSTRAINT EstadoVuelo
+  FOREIGN KEY (id_estado_vuelo)
+  REFERENCES  states (id_state);
+  
+ALTER TABLE  Aviones
+ADD CONSTRAINT Avion
+  FOREIGN KEY (id_avion)
+  REFERENCES  Aviones(ID_avion);
+
 insert into states(Name_State) values ('Activo');
 insert into states(Name_State) values ('Inactivo'); 
 insert into Types_Clients(Name_Type) values ('Cliente');
