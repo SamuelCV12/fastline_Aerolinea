@@ -21,7 +21,14 @@ namespace EAFIT_BaseDeDatos.UI
 
         private void BtnSalir_Click(object sender, EventArgs e)
         {
-            InstanciaPpal.Close();
+            if (InstanciaPpal != null)
+            {
+                InstanciaPpal.Close();
+            }
+            else
+            {
+                Application.Exit();
+            }
         }
 
         private void PBProductos_Click(object sender, EventArgs e)
@@ -56,3 +63,4 @@ namespace EAFIT_BaseDeDatos.UI
         }
     }
 }
+
